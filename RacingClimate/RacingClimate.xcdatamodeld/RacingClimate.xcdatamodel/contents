@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Clouds" representedClassName="Clouds" syncable="YES" codeGenerationType="class"/>
+    <entity name="Forecast" representedClassName="Forecast" syncable="YES" codeGenerationType="class"/>
+    <entity name="Info" representedClassName="Info" syncable="YES" codeGenerationType="class"/>
+    <entity name="Main" representedClassName="Main" syncable="YES" codeGenerationType="class"/>
+    <entity name="Sys" representedClassName="Sys" syncable="YES" codeGenerationType="class"/>
+    <entity name="Weather" representedClassName="Weather" syncable="YES" codeGenerationType="class"/>
+    <entity name="Wind" representedClassName="Wind" syncable="YES" codeGenerationType="class"/>
+    <elements>
+        <element name="Forecast" positionX="-63" positionY="-18" width="128" height="45"/>
+        <element name="Wind" positionX="-54" positionY="-9" width="128" height="45"/>
+        <element name="Clouds" positionX="-36" positionY="9" width="128" height="45"/>
+        <element name="Info" positionX="-18" positionY="27" width="128" height="45"/>
+        <element name="Weather" positionX="0" positionY="45" width="128" height="45"/>
+        <element name="Main" positionX="18" positionY="63" width="128" height="45"/>
+        <element name="Sys" positionX="-9" positionY="36" width="128" height="45"/>
+    </elements>
+</model>

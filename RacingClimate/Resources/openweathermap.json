@@ -1,0 +1,256 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a Open Weather Map server.",
+        "version": "1.0.0",
+        "title": "Swagger Open Weather Map",
+        "termsOfService": "https://openweather.co.uk/privacy-policy",
+        "contact": {
+            "email": "info@openweathermap.org"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "api.openweathermap.org",
+    "basePath": "/data/2.5",
+    "tags": [
+        {
+            "name": "weather",
+            "description": "Everything about weather",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "https://openweathermap.org/"
+            }
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/weather": {
+            "get": {
+                "tags": [
+                    "weather"
+                ],
+                "summary": "Get current weather by city",
+                "operationId": "currentWeatherByCity",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "City ID of the query.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "units",
+                        "in": "query",
+                        "description": "Temperature unit.",
+                        "required": true,
+                        "type": "string",
+                        "default": "metric"
+                    },
+                    {
+                        "name": "APPID",
+                        "in": "query",
+                        "description": "Open Weather Map App ID.",
+                        "required": true,
+                        "type": "string",
+                        "default": "2cebe458561b8e39965d632395a2852e"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Info"
+                        }
+                    },
+                    "default": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/forecast": {
+            "get": {
+                "tags": [
+                    "weather"
+                ],
+                "summary": "Get forecast weather by city",
+                "operationId": "forecastWeatherByCity",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "City ID of the query.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "units",
+                        "in": "query",
+                        "description": "Temperature unit.",
+                        "required": true,
+                        "type": "string",
+                        "default": "metric"
+                    },
+                    {
+                        "name": "APPID",
+                        "in": "query",
+                        "description": "Open Weather Map App ID.",
+                        "required": true,
+                        "type": "string",
+                        "default": "2cebe458561b8e39965d632395a2852e"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Forecast"
+                        }
+                    },
+                    "default": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Info": {
+            "type": "object",
+            "properties": {
+                "weather": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Weather"
+                    }
+                },
+                "main": {
+                    "$ref": "#/definitions/Main"
+                },
+                "visibility": {
+                    "type": "integer"
+                },
+                "wind": {
+                    "$ref": "#/definitions/Wind"
+                },
+                "clouds": {
+                    "$ref": "#/definitions/Clouds"
+                },
+                "dt": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sys": {
+                    "$ref": "#/definitions/Sys"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Weather": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "main": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                }
+            }
+        },
+        "Main": {
+            "type": "object",
+            "properties": {
+                "temp": {
+                    "type": "number"
+                },
+                "pressure": {
+                    "type": "number"
+                },
+                "humidity": {
+                    "type": "integer"
+                },
+                "temp_min": {
+                    "type": "number"
+                },
+                "temp_max": {
+                    "type": "number"
+                }
+            }
+        },
+        "Wind": {
+            "type": "object",
+            "properties": {
+                "speed": {
+                    "type": "number"
+                },
+                "deg": {
+                    "type": "number"
+                }
+            }
+        },
+        "Clouds": {
+            "type": "object",
+            "properties": {
+                "all": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Sys": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "number"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "sunrise": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sunset": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "Forecast": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Info"
+                    }
+                }
+            }
+        }
+    }
+}
