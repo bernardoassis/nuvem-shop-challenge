@@ -53,7 +53,7 @@
                         "description": "Temperature unit.",
                         "required": true,
                         "type": "string",
-                        "default": "metric"
+                        "default": "imperial"
                     },
                     {
                         "name": "APPID",
@@ -101,7 +101,7 @@
                         "description": "Temperature unit.",
                         "required": true,
                         "type": "string",
-                        "default": "metric"
+                        "default": "imperial"
                     },
                     {
                         "name": "APPID",

@@ -26,9 +26,10 @@ class ForecastTableViewController: UITableViewController {
     }
     
     func loadData() {
+        
         self.showLoading()
         
-        DataManager.shared.loadForecastWeatherData(self.city!) { (forecastWeather, error) in
+        DataManager.shared.loadCityForecastWeatherData(self.city!) { (forecastWeather, error) in
             self.dismissLoading()
             
             if let weather = forecastWeather?.list, error == nil {
@@ -48,13 +49,11 @@ class ForecastTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as! ForecastTableViewCell
+        
         // Configure the cell...
         let info = self.forecastWeather[indexPath.row]
-        if let main = info.main {
-            cell.textLabel?.text = "\(main.temp!)"
-        }
+        cell.setInfo(info)
 
         return cell
     }

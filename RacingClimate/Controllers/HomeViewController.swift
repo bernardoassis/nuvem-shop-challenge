@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
     func loadData() {
         self.showLoading()
         
-        DataManager.shared.loadCitiesCurrentWeatherData { (weatherData, error) in
+        DataManager.shared.loadCitiesWeatherData { (weatherData, error) in
             self.dismissLoading()
             
             if (error == nil) {
@@ -62,8 +62,38 @@ class HomeViewController: UIViewController {
     
     func loadCurrentCityInformation() {
         let cityName = self.cityNames[self.currentIndex]
-        if let data = self.data, let info = data[cityName] {
+        self.cityLabel.text = cityName
+        
+        if let data = self.data, let info = data[cityName], let main = info.main, let weather = info.weather {
             
+            if weather.count > 0, let w = weather.first {
+                if let icon = w.icon {
+                    let url = URL(string: "https://openweathermap.org/img/w/\(icon).png")
+                    
+                    self.blurredImageView.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil) { (image, error, _, _) in
+                        if let i = image {
+                            self.weatherImageView.image = i
+                        }
+                    }
+                }
+                
+                self.descriptionLabel.text = (w._description != nil) ? w._description!.capitalized : "Description unavailable"
+            }
+            
+            let numberFormatter = NumberFormatter()
+            numberFormatter.minimumFractionDigits = 1
+            numberFormatter.maximumFractionDigits = 1
+            numberFormatter.minimumIntegerDigits = 1
+            
+            let tempNumber = (main.temp != nil) ? NSNumber(value: main.temp!) : nil
+            let maxTempNumber = (main.tempMax != nil) ? NSNumber(value: main.tempMax!) : nil
+            let minTempNumber = (main.tempMin != nil) ? NSNumber(value: main.tempMin!) : nil
+            let humidityNumber = (main.humidity != nil) ? NSNumber(value: main.humidity!) : nil
+            
+            self.temperatureLabel.text = (tempNumber != nil) ? "\(numberFormatter.string(from: tempNumber!)!) °F" : "--"
+            self.maxTempLabel.text = (maxTempNumber != nil) ? "\(numberFormatter.string(from: maxTempNumber!)!) °F" : "--"
+            self.minTempLabel.text = (minTempNumber != nil) ? "\(numberFormatter.string(from: minTempNumber!)!) °F" : "--"
+            self.humidityLabel.text = (humidityNumber != nil) ? "\(numberFormatter.string(from: humidityNumber!)!)%" : "--"
         }
     }
     
@@ -94,6 +124,10 @@ class HomeViewController: UIViewController {
     
     @IBAction func didClickForecastButton(_ sender: Any) {
         self.performSegue(withIdentifier: HomeViewController.FORECAST_SEGUE_IDENTIFIER, sender: nil)
+    }
+    
+    @IBAction func didClickUpdateButton(_ sender: Any) {
+        loadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
